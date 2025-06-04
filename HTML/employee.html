@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee</title>
+    <link rel="stylesheet" href="/CSS/style.css">
+    <script src="/Javascript/jquery.js"></script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">
+            <span>EasyShift</span>
+        </div>
+        <nav>
+            <ul class="nav-list">
+                <li>Employee</li>
+                <li>Roster</li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
+        <section class="hero center">
+            <h1>EasyShift Employee Management</h1>
+        </section>
+        <button id="btnCreate" class="primary-btn">New Employee</button>
+        <section id="section-form" class="form-section hidden">
+            <h2>Employee Form</h2>
+            <p>Please fill out the form below to add a new employee.</p>
+            <form id="employee-form" class="modern-form center">
+                <div class="form-grid">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="function">Function:</label>
+                    <input type="text" id="function" name="function" required>
+
+                    <label for="contract">Contract Type:</label>
+                    <select id="contract" name="contract" required>
+                        <option value="">Select...</option>
+                        <option value="full-time">Full Time</option>
+                        <option value="part-time">Part Time</option>
+                        <option value="temporary">Temporary</option>
+                    </select>
+
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="primary-btn">Submit</button>
+                    <button type="reset" class="secondary-btn">Reset</button>
+                </div>
+            </form>
+        </section>
+        <section class="list-section">
+            <h2>Employee List</h2>
+            <div class="table-responsive">
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Function</th>
+                            <th>Contract Type</th>
+                            <th>Phone Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>Software Engineer</td>
+                            <td>Full Time</td>
+                            <td>(123) 456-7890</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <footer class="main-footer">
+        <p>&copy; 2023 EasyShift. All rights reserved.</p>
+    </footer>
+    <script src="/Javascript/script.js"></script>
+</body>
+</html>
