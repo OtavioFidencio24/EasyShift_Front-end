@@ -1,7 +1,14 @@
-$("#btnCreate").on('click', function() {
-    $("#section-form").toggleClass("hidden");
-    $("#btnCreate").toggleClass("hidden");
+$("#btnCreateEmployee").on('click', function() {
+    $("#section-employee-form").toggleClass("hidden");
+    $("#btnCreateEmployee").toggleClass("hidden");
 });
+
 $("#btnSubmit").on('click', function() {
-    $("#btnCreate").toggleClass("hidden");
+    $("#btnCreateEmployee").toggleClass("hidden");
+    $("#btnCreateRoster").toggleClass("hidden");
+});
+
+$("#btnCreateRoster").on('click', function() {
+    $("#section-roster-form").toggleClass("hidden");
+    $("#btnCreateRoster").toggleClass("hidden");
 });
