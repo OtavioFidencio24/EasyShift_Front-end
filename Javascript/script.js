@@ -12,3 +12,5 @@ $("#btnCreateRoster").on('click', function() {
     $("#section-roster-form").toggleClass("hidden");
     $("#btnCreateRoster").toggleClass("hidden");
 });
+
+
