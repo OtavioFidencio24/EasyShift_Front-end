@@ -7,6 +7,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .login-container {
     background: var(--white);
     padding: 2.5rem 2rem;
@@ -18,6 +19,7 @@
     flex-direction: column;
     gap: 1.2rem;
 }
+
 .login-container h2 {
     margin: 0 0 1rem 0;
     color: var(--primary);
@@ -25,17 +27,21 @@
     font-weight: 600;
     letter-spacing: 1px;
 }
-form {
+
+.login-container form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
-label {
+
+.login-container label {
     font-size: 1rem;
     color: var(--text-dark);
     margin-bottom: 0.3rem;
 }
-input[type="text"], input[type="password"] {
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
     padding: 0.7rem 1rem;
     border: 1px solid #d1d5db;
     border-radius: 0.6rem;
@@ -43,12 +49,15 @@ input[type="text"], input[type="password"] {
     background: #f9fafb;
     transition: border 0.2s;
 }
-input[type="text"]:focus, input[type="password"]:focus {
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
     border: 1.5px solid var(--primary);
     outline: none;
     background: var(--white);
 }
-button[type="submit"] {
+
+.login-container button[type="submit"] {
     padding: 0.8rem 0;
     background: linear-gradient(95deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: var(--white);
@@ -60,9 +69,11 @@ button[type="submit"] {
     transition: background 0.2s, transform 0.1s;
     box-shadow: 0 2px 8px rgba(76, 81, 255, 0.08);
 }
-button[type="submit"]:hover {            
+
+.login-container button[type="submit"]:hover {            
     transform: translateY(-2px) scale(1.03);
 }
+
 @media (max-width: 480px) {
     .login-container {
         padding: 1.5rem 0.8rem;

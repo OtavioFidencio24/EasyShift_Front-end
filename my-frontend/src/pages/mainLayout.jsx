@@ -29,8 +29,8 @@ function MainLayout() {
       </main>
 
       {/* Footer */}
-      <footer className="main-footer">
-        <p>&copy; 2023 EasyShift. All rights reserved.</p>
+      <footer className="footer">
+        <p>&copy; 2025 EasyShift. All rights reserved.</p>
       </footer>
     </div>
   );

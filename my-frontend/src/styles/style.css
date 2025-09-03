@@ -1,9 +1,23 @@
-body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: var(--background);
-    margin: 0;
-    color: var(--text-dark);
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap');
+
+/* Faz o body ocupar toda a altura da tela */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  background-color: var(--background);
 }
+
+/* Container principal que empurra o footer para baixo */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Cabeçalho */
 .main-header {
     background: var(--primary);
     color: var(--white);
@@ -13,10 +27,11 @@ body {
     padding: 0 40px;
     height: 64px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    font-family: 'Poppins', sans-serif;
 }
 .logo span {
     font-size: 1.7rem;
-    font-weight: bold;
+    font-weight: 600;
     letter-spacing: 1px;
 }
 nav .nav-list {
@@ -42,6 +57,8 @@ nav .nav-list li.active,
 nav .nav-list li:hover {
     background: var(--primary-dark);
 }
+
+/* Container principal de conteúdo */
 .container {
     max-width: 900px;
     margin: 32px auto;
@@ -50,6 +67,8 @@ nav .nav-list li:hover {
     box-shadow: 0 4px 24px rgba(0,0,0,0.07);
     padding: 32px 24px;
 }
+
+/* Centralização */
 .center {
     display: flex;
     align-items: center;
@@ -57,6 +76,7 @@ nav .nav-list li:hover {
     flex-direction: column;
     text-align: center;
 }
+
 .hero {
     flex-wrap: wrap;
     gap: 16px;
@@ -66,7 +86,10 @@ nav .nav-list li:hover {
     margin: 0;
     font-size: 2rem;
     font-weight: 600;
+    font-family: 'Poppins', sans-serif;
 }
+
+/* Botões principais */
 .primary-btn {
     background: var(--primary);
     color: var(--white);
@@ -75,12 +98,14 @@ nav .nav-list li:hover {
     border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
     transition: background 0.2s;
 }
 .primary-btn:hover {
     background: var(--primary-dark);
 }
+
 .secondary-btn {
     background: var(--primary-light);
     color: var(--primary);
@@ -90,12 +115,15 @@ nav .nav-list li:hover {
     font-size: 1rem;
     cursor: pointer;
     font-weight: 500;
+    font-family: 'Poppins', sans-serif;
     margin-left: 12px;
     transition: background 0.2s;
 }
 .secondary-btn:hover {
     background: #c7d7f7;
 }
+
+/* Seções */
 .form-section, .list-section {
     margin-bottom: 32px;
     text-align: center;
@@ -103,7 +131,10 @@ nav .nav-list li:hover {
 .form-section h2 {
     font-size: 1.5rem;
     margin-bottom: 16px;
+    font-family: 'Poppins', sans-serif;
 }
+
+/* Formulário */
 .modern-form {
     margin-top: 16px;
 }
@@ -123,6 +154,7 @@ nav .nav-list li:hover {
     border-radius: 5px;
     font-size: 1rem;
     background: var(--background);
+    font-family: 'Inter', sans-serif;
     transition: border 0.2s;
 }
 .form-grid input:focus, .form-grid select:focus {
@@ -130,9 +162,12 @@ nav .nav-list li:hover {
     outline: none;
     background: var(--white);
 }
+
 .form-actions {
     margin-top: 20px;
 }
+
+/* Tabela moderna */
 .modern-table {
     width: 100%;
     border-collapse: collapse;
@@ -140,6 +175,7 @@ nav .nav-list li:hover {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    font-family: 'Inter', sans-serif;
 }
 .modern-table th, .modern-table td {
     padding: 14px 12px;
@@ -153,15 +189,44 @@ nav .nav-list li:hover {
 .modern-table tr:nth-child(even) {
     background: var(--background);
 }
-.modern-table tr:hover {
-    background: var(--primary-light);
-}
 .table-responsive {
     overflow-x: auto;
 }
 .hidden {
     display: none;
 }
+
+/* Botões de ação na tabela */
+.icon-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 4px 8px;
+    transition: transform 0.2s;
+}
+
+.icon-btn:hover {
+    transform: scale(1.1);
+    background-color: ;
+}
+
+
+/* Espaçamento entre os ícones dentro da célula */
+.modern-table td .icon-btn + .icon-btn {
+    margin-left: 8px;
+}
+
+/* Footer */
+.footer {
+  margin-top: auto;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  text-align: center;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividade */
 @media (max-width: 700px) {
     .container {
         padding: 16px 4px;
