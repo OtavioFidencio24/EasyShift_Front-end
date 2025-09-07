@@ -1,120 +1,151 @@
-import { useState } from "react";
-import "../styles/variables.css";
+import { useState, useEffect } from "react";
+import { getEmployees } from "../service/employeeService";
+import { getRosters } from "../service/rosterService";
+import { mapRosterWithEmployees } from "../service/workHoursService";
 import "../styles/style.css";
+
+const weekDays = ["MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"];
 
 function Roster() {
   const [showForm, setShowForm] = useState(false);
-  const [rosters, setRosters] = useState([
-    {
-      startDate: "2023-10-01",
-      endDate: "2023-10-07",
-      employees: [
-        {
-          name: "John Doe",
-          days: {
-            Monday: "9am - 5pm",
-            Tuesday: "9am - 5pm",
-            Wednesday: "Off",
-            Thursday: "9am - 5pm",
-            Friday: "9am - 5pm",
-            Saturday: "Off",
-            Sunday: "Off",
-          },
-        },
-      ],
-    },
-  ]);
+  const [rosters, setRosters] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [employees, setEmployees] = useState([]);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  // Carrega rosters e employees do backend
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const rostersData = await getRosters();
+        const employeesData = await getEmployees();
 
-    const formData = new FormData(event.target);
-    const newRoster = {
-      startDate: formData.get("start-date"),
-      endDate: formData.get("end-date"),
-      employees: [],
+        // Mapear os workHours para cada employee
+        const mappedRosters = mapRosterWithEmployees(rostersData, employeesData);
+
+        setRosters(mappedRosters);
+
+        if (mappedRosters.length > 0) {
+          const lastIndex = mappedRosters.length - 1;
+          setCurrentIndex(lastIndex);
+          setStartDate(mappedRosters[lastIndex].startDate);
+          setEndDate(mappedRosters[lastIndex].endDate);
+          setEmployees(mappedRosters[lastIndex].employees);
+        }
+      } catch (err) {
+        console.error(err);
+      }
     };
 
-    setRosters([...rosters, newRoster]);
-    event.target.reset();
-    setShowForm(false);
+    fetchData();
+  }, []);
+
+  const handleNewRosterClick = async () => {
+    setShowForm(true);
+    setStartDate("");
+    setEndDate("");
+    setEmployees([]);
+
+    try {
+      const employeesData = await getEmployees();
+      const employeesWithSchedule = employeesData.map(emp => ({
+        ...emp,
+        schedule: weekDays.map(day => ({ weekDay: day, startHour: "", finishHour: "", dayOff: false }))
+      }));
+      setEmployees(employeesWithSchedule);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
     <main className="container">
       <section className="hero center">
-        <h1>Roster Management</h1>
+        <h1>Weekly Roster</h1>
       </section>
 
+      {/* Tabela fixa para a última semana carregada */}
+      <div className="roster-view">
+        <h2>
+          {`Week${currentIndex + 1}: from ${startDate || "____"} to ${endDate || "____"}`}
+        </h2>
+        <table className="roster-table">
+          <thead>
+            <tr>
+              <th>Employee</th>
+              {weekDays.map(day => (
+                <th key={day} colSpan="3">{day}</th>
+              ))}
+            </tr>
+            <tr>
+              <th></th>
+              {weekDays.map(() => (
+                <>
+                  <th>Start</th>
+                  <th>Finish</th>
+                  <th>Day Off</th>
+                </>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {employees.length > 0 ? (
+              employees.map(emp => (
+                <tr key={emp.id}>
+                  <td>{emp.name}</td>
+                  {emp.schedule.map((day, idx) => (
+                    <>
+                      <td>{day.startHour || "-"}</td>
+                      <td>{day.finishHour || "-"}</td>
+                      <td>{day.dayOff ? "Yes" : "No"}</td>
+                    </>
+                  ))}
+                </tr>
+              ))
+            ) : (
+              [1,2,3].map(i => (
+                <tr key={i}>
+                  <td>Employee {i}</td>
+                  {weekDays.map(() => (
+                    <>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </>
+                  ))}
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Botão para abrir o formulário */}
       <button
-        onClick={() => setShowForm(!showForm)}
+        onClick={handleNewRosterClick}
         className="primary-btn"
-        id="btnCreateRoster"
       >
         {showForm ? "Close Form" : "New Roster"}
       </button>
 
+      {/* Formulário de criação */}
       {showForm && (
         <section className="form-section">
-          <form
-            id="roster-form"
-            className="modern-form center"
-            onSubmit={handleSubmit}
-          >
-            <div className="form-grid">
-              <label htmlFor="start-date">Start Date:</label>
-              <input type="date" id="start-date" name="start-date" required />
-
-              <label htmlFor="end-date">End Date:</label>
-              <input type="date" id="end-date" name="end-date" required />
-            </div>
-            <div className="form-actions">
-              <button type="submit" className="primary-btn">
-                Submit
-              </button>
-              <button type="reset" className="secondary-btn">
-                Reset
-              </button>
-            </div>
-          </form>
+          <h2 className="center">Create Weekly Roster</h2>
+          <div className="week-dates center">
+            <label>
+              Start Date:
+              <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} />
+            </label>
+            <label>
+              End Date:
+              <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} />
+            </label>
+          </div>
+          {/* Inputs para cada employee podem ser adicionados aqui */}
         </section>
       )}
-
-      <section className="list-section">
-        <h2>Week of</h2>
-        <div className="table-responsive">
-          <table className="modern-table">
-            <thead>
-              <tr>
-                <th>Employee</th>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-                <th>Saturday</th>
-                <th>Sunday</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rosters.map((roster, index) =>
-                roster.employees.map((emp, empIndex) => (
-                  <tr key={`${index}-${empIndex}`}>
-                    <td>{emp.name}</td>
-                    <td>{emp.days.Monday}</td>
-                    <td>{emp.days.Tuesday}</td>
-                    <td>{emp.days.Wednesday}</td>
-                    <td>{emp.days.Thursday}</td>
-                    <td>{emp.days.Friday}</td>
-                    <td>{emp.days.Saturday}</td>
-                    <td>{emp.days.Sunday}</td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-      </section>
     </main>
   );
 }

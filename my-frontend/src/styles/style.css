@@ -134,7 +134,7 @@ nav .nav-list li:hover {
     font-family: 'Poppins', sans-serif;
 }
 
-/* Formulário */
+/* Formulário moderno */
 .modern-form {
     margin-top: 16px;
 }
@@ -208,13 +208,38 @@ nav .nav-list li:hover {
 
 .icon-btn:hover {
     transform: scale(1.1);
-    background-color: ;
 }
-
 
 /* Espaçamento entre os ícones dentro da célula */
 .modern-table td .icon-btn + .icon-btn {
     margin-left: 8px;
+}
+
+/* Navegação entre rosters (Preview / Next) */
+.navigation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.navigation-buttons button {
+    padding: 10px 24px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    background: var(--primary);
+    color: var(--white);
+    transition: background 0.2s;
+}
+.navigation-buttons button:hover:not(:disabled) {
+    background: var(--primary-dark);
+}
+.navigation-buttons button:disabled {
+    background-color: #cfd8dc;
+    cursor: not-allowed;
 }
 
 /* Footer */
@@ -238,4 +263,86 @@ nav .nav-list li:hover {
         flex-direction: column;
         align-items: flex-start;
     }
+}
+
+/* ============================ */
+/* Formulário estilo Excel WeekRoster + WorkHours */
+/* ============================ */
+
+.week-dates {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.week-dates input[type="date"] {
+  padding: 6px 10px;
+  border: 1px solid #cfd8dc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.roster-table-container {
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+
+.roster-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Inter', sans-serif;
+}
+
+.roster-table th,
+.roster-table td {
+  border: 1px solid #cfd8dc;
+  padding: 8px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.roster-table th {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.roster-table td input[type="time"] {
+  width: 80%;
+  padding: 4px 6px;
+  border: 1px solid #cfd8dc;
+  border-radius: 4px;
+}
+
+.roster-table td input[type="checkbox"] {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.roster-table td.employee-name {
+  text-align: left;
+  font-weight: 500;
+  padding-left: 8px;
+  background: #f5f5f5;
+}
+
+.roster-form button.primary-btn {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+}
+
+/* Responsividade da tabela Excel */
+@media (max-width: 900px) {
+  .roster-table th,
+  .roster-table td {
+    padding: 6px;
+    font-size: 0.85rem;
+  }
+  .roster-table td input[type="time"] {
+    width: 70%;
+  }
 }
